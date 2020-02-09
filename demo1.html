@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Basic Usage</title>
+</head>
+
+<body>
+
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@2.0.1/dist/tesseract.min.js"></script>
+    <script>
+        window.addEventListener('load', function() {
+            document.querySelector('input[type="file"]').addEventListener('change', function() {
+                if (this.files && this.files[0]) {
+                    var img = document.querySelector('img'); // $('img')[0]
+                    img.src = URL.createObjectURL(this.files[0]); // set src to blob url
+                    img.onload = imageIsLoaded;
+                }
+            });
+        });
+
+        function imageIsLoaded() {
+            alert(this.src); // blob url
+            // update width and height ...
+        }
+
+
+
+        const exampleImage = 'https://tesseract.projectnaptha.com/img/eng_bw.png';
+
+        // const worker = Tesseract.createWorker({
+        //     logger: m => console.log(m)
+        // });
+        // Tesseract.setLogging(true);
+        // work();
+
+        // async function work() {
+        //     await worker.load();
+        //     await worker.loadLanguage('eng');
+        //     await worker.initialize('eng');
+
+        //     let result = await worker.detect(exampleImage);
+        //     console.log(result.data);
+
+        //     result = await worker.recognize(exampleImage);
+        //     console.log(result.data);
+
+        //     await worker.terminate();
+        // }
+    </script>
+    <input type='file' />
+    <br><img id="myImg" src="#" alt="your image">
+</body>
+
+</html>
