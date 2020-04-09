@@ -18,7 +18,7 @@ const authEndpoint = 'https://accounts.spotify.com/authorize';
 
 // Replace with your app's client ID, redirect URI and desired scopes
 const clientId = '71d0ff96a0ae4889971ba7e67f1783e4';
-const redirectUri = 'https://boonebaker.github.io/SpotifyPowerHour/ph.html';
+const redirectUri = 'https://boonebaker.github.io/SpotifyPowerHour/ph1.html';
 const scopes = [
     'streaming',
     //'user-read-birthdate',
