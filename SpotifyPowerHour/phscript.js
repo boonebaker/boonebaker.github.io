@@ -35,7 +35,7 @@ if (!_token) {
 
 window.onSpotifyPlayerAPIReady = () => {
     const player = new Spotify.Player({
-        name: 'Web Playback SDK Template',
+        name: 'Power Hour Player',
         getOAuthToken: cb => { cb(_token); }
     });
 
@@ -62,9 +62,15 @@ window.onSpotifyPlayerAPIReady = () => {
 
     // Connect to the player!
     player.connect();
+
+    function toggle() {
+        player.togglePlay().then(() => {
+            console.log('Toggled playback!');
+        });
+    };
 }
 
-// Play a specified track on the Web Playback SDK's device ID
+// Play a specified track
 function play(device_id) {
     $.ajax({
         url: "https://api.spotify.com/v1/me/player/play?device_id=" + device_id,
