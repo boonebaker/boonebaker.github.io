@@ -23,33 +23,41 @@
         });
 
         function imageIsLoaded() {
-            alert(this.src); // blob url
+            //alert(this.src); // blob url
             // update width and height ...
+
+
+
+
+            const exampleImage = this.src; //'https://tesseract.projectnaptha.com/img/eng_bw.png';
+
+            const worker = Tesseract.createWorker({
+                //logger: m => console.log(m)
+            });
+            //Tesseract.setLogging(true);
+            Tesseract.setLogging(false);
+            work();
+
+            async function work() {
+                await worker.load();
+                await worker.loadLanguage('eng');
+                await worker.initialize('eng');
+
+                let result = await worker.detect(exampleImage);
+                //console.log(result.data);
+
+                result = await worker.recognize(exampleImage);
+                //console.log(result.data);
+
+                for (i = 0; i < result.data.lines.length; i++) {
+                    console.log(result.data.lines[i]);
+                }
+
+                //console.log(result.data.lines);
+
+                await worker.terminate();
+            }
         }
-
-
-
-        const exampleImage = 'https://tesseract.projectnaptha.com/img/eng_bw.png';
-
-        // const worker = Tesseract.createWorker({
-        //     logger: m => console.log(m)
-        // });
-        // Tesseract.setLogging(true);
-        // work();
-
-        // async function work() {
-        //     await worker.load();
-        //     await worker.loadLanguage('eng');
-        //     await worker.initialize('eng');
-
-        //     let result = await worker.detect(exampleImage);
-        //     console.log(result.data);
-
-        //     result = await worker.recognize(exampleImage);
-        //     console.log(result.data);
-
-        //     await worker.terminate();
-        // }
     </script>
     <input type='file' />
     <br><img id="myImg" src="#" alt="your image">
