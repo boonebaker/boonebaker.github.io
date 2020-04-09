@@ -18,7 +18,7 @@ const authEndpoint = 'https://accounts.spotify.com/authorize';
 
 // Replace with your app's client ID, redirect URI and desired scopes
 const clientId = '71d0ff96a0ae4889971ba7e67f1783e4';
-const redirectUri = 'https://spotify-web-playback.glitch.me';
+const redirectUri = 'https://boonebaker.github.io/SpotifyPowerHour/ph.html';
 const scopes = [
     'streaming',
     'user-read-birthdate',
@@ -28,7 +28,7 @@ const scopes = [
 
 // If there is no token, redirect to Spotify authorization
 if (!_token) {
-    window.location = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join('%20')}&response_type=token&show_dialog=true`;
+    window.location = `${authEndpoint}?client_id=${clientId}&scope=${scopes.join('%20')}&response_type=token&show_dialog=true`;
 }
 
 // Set up the Web Playback SDK
