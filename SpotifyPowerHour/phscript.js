@@ -21,7 +21,7 @@ const clientId = '71d0ff96a0ae4889971ba7e67f1783e4';
 const redirectUri = 'https://boonebaker.github.io/SpotifyPowerHour/ph.html';
 const scopes = [
     'streaming',
-    'user-read-birthdate',
+    //'user-read-birthdate',
     'user-read-private',
     'user-modify-playback-state'
 ];
