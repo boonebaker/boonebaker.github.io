@@ -60,17 +60,9 @@ window.onSpotifyPlayerAPIReady = () => {
 
     });
 
-    $.ajax({
-        url: "https://api.spotify.com/v1/me",
-        type: "GET",
-        //data: '{"uris": ["spotify:track:76wJIkA63AgwA92hUhpE2V"]}',
-        beforeSend: function(xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + _token); },
-        success: function(data) {
-            console.log(data)
-            userid = data.id;
-            console.log(userid);
-        }
-    });
+    getUser();
+
+    getPlaylists();
 
     player.addListener('player_state_changed', ({
         position,
@@ -82,6 +74,37 @@ window.onSpotifyPlayerAPIReady = () => {
         console.log('Position in Song', position);
         console.log('Duration of Song', duration);
     });
+}
+
+function getUser() {
+    $.ajax({
+        url: "https://api.spotify.com/v1/me",
+        type: "GET",
+        //data: '{"uris": ["spotify:track:76wJIkA63AgwA92hUhpE2V"]}',
+        beforeSend: function(xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + _token); },
+        success: function(data) {
+            console.log(data)
+            userid = data.id;
+            console.log(userid);
+        }
+    });
+}
+
+function getPlaylists() {
+
+    $.ajax({
+        url: "https://api.spotify.com/v1/me/playlists?offset=0&limit=50",
+        type: "GET",
+        //data: '{"uris": ["spotify:track:76wJIkA63AgwA92hUhpE2V"]}',
+        beforeSend: function(xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + _token); },
+        success: function(data) {
+            console.log(data)
+            data.items.forEach(function(i) {
+                console.log(i.name + '\t' + i.id);
+            })
+        }
+    });
+
 }
 
 function start() {
