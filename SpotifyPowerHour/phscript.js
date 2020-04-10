@@ -165,7 +165,7 @@ function play(device_id) {
 }
 
 function getPlaylistTracks(playlistId) {
-    uris.splice(0, arr.length);
+    uris.splice(0, uris.length);
     $.ajax({
         url: "https://api.spotify.com/v1/playlists/" + playlistId + "/tracks",
         type: "PUT",
