@@ -165,7 +165,7 @@ function play(device_id) {
 }
 
 function getPlaylistTracks(playlistId) {
-    uris = []
+    var uris = []
     uris.splice(0, uris.length);
     alert('gettingTracks');
     $.ajax({
