@@ -41,8 +41,19 @@ window.onSpotifyPlayerAPIReady = () => {
         getOAuthToken: cb => {
             cb(_token);
             console.log('spotify player');
+            console.log(cb(_token));
         }
 
+    });
+
+    player.addListener('player_state_changed', ({
+        position,
+        duration,
+        track_window: { current_track }
+    }) => {
+        console.log('Currently Playing', current_track);
+        console.log('Position in Song', position);
+        console.log('Duration of Song', duration);
     });
 }
 
