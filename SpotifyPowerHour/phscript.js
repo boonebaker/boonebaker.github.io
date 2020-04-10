@@ -151,6 +151,8 @@ function play(device_id) {
     playlistId = document.getElementById("playlistsDD").value;
     //alert(playlistId);
     uris = getPlaylistTracks(playlistId);
+    alert(uris);
+    6854
     $.ajax({
         url: "https://api.spotify.com/v1/me/player/play?device_id=" + device_id,
         type: "PUT",
