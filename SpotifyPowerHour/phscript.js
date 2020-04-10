@@ -179,7 +179,8 @@ function getPlaylistTracks(playlistId) {
                 uris.push(i.track.uri);
             });
         }
+    }).then(function() {
+        alert(uris.length);
+        return uris;
     });
-    alert(uris.length);
-    return uris;
 }
