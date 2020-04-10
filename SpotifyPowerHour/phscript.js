@@ -38,7 +38,9 @@ window.onSpotifyPlayerAPIReady = () => {
         name: 'Power Hour Player',
         getOAuthToken: cb => { cb(_token); }
     });
+}
 
+function toggle() {
     // Error handling
     player.on('initialization_error', e => console.error(e));
     player.on('authentication_error', e => console.error(e));
@@ -62,14 +64,7 @@ window.onSpotifyPlayerAPIReady = () => {
 
     // Connect to the player!
     player.connect();
-
-    function toggle() {
-        player.togglePlay().then(() => {
-            console.log('Toggled playback!');
-        });
-    };
-}
-
+};
 // Play a specified track
 function play(device_id) {
     $.ajax({
