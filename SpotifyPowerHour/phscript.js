@@ -13,7 +13,7 @@ window.location.hash = '';
 
 // Set token
 let _token = hash.access_token;
-let player = new Spotify.Player();
+let player;
 
 const authEndpoint = 'https://accounts.spotify.com/authorize';
 
