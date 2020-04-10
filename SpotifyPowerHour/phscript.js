@@ -91,7 +91,7 @@ function getUser() {
 }
 
 function getPlaylists() {
-
+    var dropdown = document.getElementById("playlistsDD");
     $.ajax({
         url: "https://api.spotify.com/v1/me/playlists?offset=0&limit=50",
         type: "GET",
@@ -101,6 +101,10 @@ function getPlaylists() {
             console.log(data)
             data.items.forEach(function(i) {
                 console.log(i.name + '\t' + i.id);
+                var option = document.createElement("option");
+                option.value = i.id;
+                option.text = i.name;
+                dropdown.appendChild(option);
             })
         }
     });
