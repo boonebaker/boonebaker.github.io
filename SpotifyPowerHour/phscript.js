@@ -14,6 +14,7 @@ window.location.hash = '';
 // Set token
 let _token = hash.access_token;
 let player;
+let userid;
 
 const authEndpoint = 'https://accounts.spotify.com/authorize';
 
@@ -66,6 +67,8 @@ window.onSpotifyPlayerAPIReady = () => {
         beforeSend: function(xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + _token); },
         success: function(data) {
             console.log(data)
+            userid = data.id;
+            console.log(userid);
         }
     });
 
