@@ -15,7 +15,6 @@ window.location.hash = '';
 let _token = hash.access_token;
 let player;
 let userid;
-let uris = [];
 const authEndpoint = 'https://accounts.spotify.com/authorize';
 
 // Replace with your app's client ID, redirect URI and desired scopes
@@ -166,6 +165,7 @@ function play(device_id) {
 }
 
 function getPlaylistTracks(playlistId) {
+    uris = []
     uris.splice(0, uris.length);
     alert('gettingTracks');
     $.ajax({
