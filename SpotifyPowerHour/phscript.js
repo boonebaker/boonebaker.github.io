@@ -42,6 +42,7 @@ window.onSpotifyPlayerAPIReady = () => {
             cb(_token);
             console.log('spotify player');
             console.log(cb(_token));
+            console.log(player);
         }
 
     });
@@ -52,7 +53,7 @@ window.onSpotifyPlayerAPIReady = () => {
         track_window: { current_track }
     }) => {
         console.log('Currently Playing ', current_track.name);
-        console.log('By ', current_track);
+        console.log('By ', current_track.artists[0]);
         console.log('Position in Song', position);
         console.log('Duration of Song', duration);
     });
