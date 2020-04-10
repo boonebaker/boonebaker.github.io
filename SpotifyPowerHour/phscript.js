@@ -169,8 +169,6 @@ function getPlaylistTracks(playlistId) {
     $.ajax({
         url: "https://api.spotify.com/v1/playlists/" + playlistId + "/tracks",
         type: "PUT",
-        data: '{"uris": ["spotify:track:76wJIkA63AgwA92hUhpE2V"]}',
-        //data: '{"uris": ["spotify:playlist:' + playlistId + '"]}',
         beforeSend: function(xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + _token); },
         success: function(data) {
             console.log(data);
