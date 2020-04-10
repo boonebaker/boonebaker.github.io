@@ -167,13 +167,15 @@ function play(device_id) {
 
 function getPlaylistTracks(playlistId) {
     uris.splice(0, uris.length);
+    alert('gettingTracks');
     $.ajax({
         url: "https://api.spotify.com/v1/playlists/" + playlistId + "/tracks",
-        type: "PUT",
+        type: "GET",
         beforeSend: function(xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + _token); },
         success: function(data) {
             console.log(data);
             data.items.forEach(function(i) {
+                console.log(i.track.uri);
                 uris.push(i.track.uri);
             });
         }
