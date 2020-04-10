@@ -15,7 +15,7 @@ window.location.hash = '';
 let _token = hash.access_token;
 let player;
 let userid;
-
+let uris = [];
 const authEndpoint = 'https://accounts.spotify.com/authorize';
 
 // Replace with your app's client ID, redirect URI and desired scopes
@@ -149,15 +149,35 @@ function toggle() {
 // Play a specified track
 function play(device_id) {
     playlistId = document.getElementById("playlistsDD").value;
-    alert(playlistId);
+    //alert(playlistId);
+    uris = getPlaylistTracks(playlistId);
     $.ajax({
         url: "https://api.spotify.com/v1/me/player/play?device_id=" + device_id,
         type: "PUT",
-        data: '{"uris": ["spotify:track:76wJIkA63AgwA92hUhpE2V"]}',
+        //data: '{"uris": ["spotify:track:76wJIkA63AgwA92hUhpE2V"]}',
+        data: '{"uris": ' + uris + '}',
         //data: '{"uris": ["spotify:playlist:' + playlistId + '"]}',
         beforeSend: function(xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + _token); },
         success: function(data) {
             console.log(data)
         }
     });
+}
+
+function getPlaylistTracks(playlistId) {
+    uris.splice(0, arr.length);
+    $.ajax({
+        url: "https://api.spotify.com/v1/playlists/" + playlistId + "/tracks",
+        type: "PUT",
+        data: '{"uris": ["spotify:track:76wJIkA63AgwA92hUhpE2V"]}',
+        //data: '{"uris": ["spotify:playlist:' + playlistId + '"]}',
+        beforeSend: function(xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + _token); },
+        success: function(data) {
+            console.log(data);
+            data.items.forEach(function(i) {
+                uris.push(i.track.uri);
+            });
+        }
+    });
+    return uris;
 }
