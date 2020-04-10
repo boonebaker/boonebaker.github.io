@@ -13,6 +13,7 @@ window.location.hash = '';
 
 // Set token
 let _token = hash.access_token;
+let player = new Spotify.Player();
 
 const authEndpoint = 'https://accounts.spotify.com/authorize';
 
@@ -34,7 +35,7 @@ if (!_token) {
 // Set up the Web Playback SDK
 
 window.onSpotifyPlayerAPIReady = () => {
-    const player = new Spotify.Player({
+    player = new Spotify.Player({
         name: 'Power Hour Player',
         getOAuthToken: cb => { cb(_token); }
     });
