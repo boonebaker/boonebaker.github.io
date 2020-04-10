@@ -46,7 +46,7 @@ window.onSpotifyPlayerAPIReady = () => {
     });
 }
 
-function toggle() {
+function start() {
     // Error handling
     player.on('initialization_error', e => console.error(e));
     player.on('authentication_error', e => console.error(e));
@@ -71,6 +71,12 @@ function toggle() {
     // Connect to the player!
     player.connect();
 };
+
+function toggle() {
+    player.togglePlay().then(() => {
+        console.log('Toggled playback');
+    })
+}
 // Play a specified track
 function play(device_id) {
     $.ajax({
