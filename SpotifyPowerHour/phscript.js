@@ -139,6 +139,7 @@ function start() {
         alert('Please select a playlist');
     }
 };
+1
 
 function toggle() {
     player.togglePlay().then(() => {
