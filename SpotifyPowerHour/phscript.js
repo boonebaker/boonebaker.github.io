@@ -180,5 +180,6 @@ function getPlaylistTracks(playlistId) {
             });
         }
     });
+    console.log('length of uris: ' + uris.length);
     return uris;
 }
