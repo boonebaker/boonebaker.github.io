@@ -35,9 +35,14 @@ if (!_token) {
 // Set up the Web Playback SDK
 
 window.onSpotifyPlayerAPIReady = () => {
+    console.log('onSpotify');
     player = new Spotify.Player({
         name: 'Power Hour Player',
-        getOAuthToken: cb => { cb(_token); }
+        getOAuthToken: cb => {
+            cb(_token);
+            console.log('spotify player');
+        }
+
     });
 }
 
