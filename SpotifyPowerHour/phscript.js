@@ -22,6 +22,8 @@ const clientId = '71d0ff96a0ae4889971ba7e67f1783e4';
 const redirectUri = 'https://boonebaker.github.io/SpotifyPowerHour/ph1.html';
 const scopes = [
     'streaming',
+    'playlist-read-private',
+    'playlist-read-collaborative',
     //'user-read-birthdate',
     'user-read-private',
     'user-modify-playback-state'
@@ -32,6 +34,15 @@ if (!_token) {
     window.location = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join('%20')}&response_type=token&show_dialog=true`;
 }
 
+//Get current user details
+//https://api.spotify.com/v1/me
+
+
+// Chill Live Albums URI
+// spotify:playlist:3mXoUl8XpnRmE2zNhCG9te
+// playlist id: 3mXoUl8XpnRmE2zNhCG9te
+
+
 // Set up the Web Playback SDK
 
 window.onSpotifyPlayerAPIReady = () => {
@@ -41,11 +52,21 @@ window.onSpotifyPlayerAPIReady = () => {
         getOAuthToken: cb => {
             cb(_token);
             console.log('spotify player');
-            console.log(cb(_token));
             console.log('token = ' + _token);
-            console.log(player);
         }
 
+
+
+    });
+
+    $.ajax({
+        url: "https://api.spotify.com/v1/me",
+        type: "GET",
+        //data: '{"uris": ["spotify:track:76wJIkA63AgwA92hUhpE2V"]}',
+        beforeSend: function(xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + _token); },
+        success: function(data) {
+            console.log(data)
+        }
     });
 
     player.addListener('player_state_changed', ({
