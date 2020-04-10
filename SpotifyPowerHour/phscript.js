@@ -55,9 +55,6 @@ window.onSpotifyPlayerAPIReady = () => {
             console.log('spotify player');
             console.log('token = ' + _token);
         }
-
-
-
     });
 
     getUser();
@@ -112,29 +109,35 @@ function getPlaylists() {
 }
 
 function start() {
-    // Error handling
-    player.on('initialization_error', e => console.error(e));
-    player.on('authentication_error', e => console.error(e));
-    player.on('account_error', e => console.error(e));
-    player.on('playback_error', e => console.error(e));
+    if (document.getElementById("playlistsDD").value != "null") {
 
-    // Playback status updates
-    player.on('player_state_changed', state => {
-        console.log(state)
-        $('#current-track').attr('src', state.track_window.current_track.album.images[0].url);
-        $('#current-track-name').text(state.track_window.current_track.name);
-    });
 
-    // Ready
-    player.on('ready', data => {
-        console.log('Ready with Device ID', data.device_id);
+        // Error handling
+        player.on('initialization_error', e => console.error(e));
+        player.on('authentication_error', e => console.error(e));
+        player.on('account_error', e => console.error(e));
+        player.on('playback_error', e => console.error(e));
 
-        // Play a track using our new device ID
-        play(data.device_id);
-    });
+        // Playback status updates
+        player.on('player_state_changed', state => {
+            console.log(state)
+            $('#current-track').attr('src', state.track_window.current_track.album.images[0].url);
+            $('#current-track-name').text(state.track_window.current_track.name);
+        });
 
-    // Connect to the player!
-    player.connect();
+        // Ready
+        player.on('ready', data => {
+            console.log('Ready with Device ID', data.device_id);
+
+            // Play a track using our new device ID
+            play(data.device_id);
+        });
+
+        // Connect to the player!
+        player.connect();
+    } else {
+        alert('Please select a playlist');
+    }
 };
 
 function toggle() {
