@@ -148,10 +148,12 @@ function toggle() {
 }
 // Play a specified track
 function play(device_id) {
+    playlistId = document.getElementById("playlistsDD").value;
+    alert(playlistId);
     $.ajax({
         url: "https://api.spotify.com/v1/me/player/play?device_id=" + device_id,
         type: "PUT",
-        data: '{"uris": ["spotify:playlist:' + document.getElementById("playlistsDD").value + '"]}',
+        data: '{"uris": ["spotify:playlist:' + playlistId + '"]}',
         beforeSend: function(xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + _token); },
         success: function(data) {
             console.log(data)
