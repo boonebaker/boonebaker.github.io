@@ -178,9 +178,9 @@ function getPlaylistTracks(playlistId) {
                 console.log(i.track.uri);
                 uris.push(i.track.uri);
             });
+
+            alert(uris.length);
+            return uris;
         }
-    }).then(function() {
-        alert(uris.length);
-        return uris;
     });
 }
