@@ -134,6 +134,7 @@ function start() {
 
                 // Play a track using our new device ID
                 play(data.device_id);
+                nextTrack();
             });
 
             // Connect to the player!
@@ -143,6 +144,10 @@ function start() {
         alert('Please select a playlist');
     }
 };
+
+function nextTrack() {
+    player.nextTrack();
+}
 
 function toggle() {
     player.togglePlay().then(() => {
