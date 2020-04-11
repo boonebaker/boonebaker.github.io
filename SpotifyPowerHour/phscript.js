@@ -149,7 +149,7 @@ function toggle() {
 function play(device_id) {
     playlistId = document.getElementById("playlistsDD").value;
     //alert(playlistId);
-    uris = getPlaylistTracks(playlistId);
+    var uris = getPlaylistTracks(playlistId);
     while (uris == undefined) {
 
     }
