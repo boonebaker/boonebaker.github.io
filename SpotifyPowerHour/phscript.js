@@ -149,7 +149,9 @@ function toggle() {
 function play(device_id) {
     playlistId = document.getElementById("playlistsDD").value;
     //alert(playlistId);
-    var uris = getPlaylistTracks(playlistId).then(function() {
+    var promise = new Promise(function(resolve, reject) {
+        var uris = getPlaylistTracks(playlistId)
+    }).then(function() {
         alert(uris);
         $.ajax({
             url: "https://api.spotify.com/v1/me/player/play?device_id=" + device_id,
