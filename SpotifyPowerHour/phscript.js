@@ -186,8 +186,12 @@ function getPlaylistTracks(playlistId) {
                 });
 
                 //alert(uris.length);
-                return uris;
+                //return uris;
             }
-        });
+        }) {
+            if (error) return reject(error);
+            resolve(uris);
+        };
+
     })
 };
