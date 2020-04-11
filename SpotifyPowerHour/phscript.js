@@ -146,52 +146,42 @@ function toggle() {
     })
 }
 // Play a specified track
-async function play(device_id) {
+function play(device_id) {
     playlistId = document.getElementById("playlistsDD").value;
     //alert(playlistId);
-    try {
-        var uris = getPlaylistTracks(playlistId);
-        console.log(uris);
-        $.ajax({
-            url: "https://api.spotify.com/v1/me/player/play?device_id=" + device_id,
-            type: "PUT",
-            //data: '{"uris": ["spotify:track:76wJIkA63AgwA92hUhpE2V"]}',
-            data: '{"uris": ' + uris + '}',
-            //data: '{"uris": ["spotify:playlist:' + playlistId + '"]}',
-            beforeSend: function(xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + _token); },
-            success: function(data) {
-                console.log(data)
-            }
-        });
-
-    } catch (error) {
-        console.error(error);
-    }
+    uris = getPlaylistTracks(playlistId);
+    alert(uris);
+    $.ajax({
+        url: "https://api.spotify.com/v1/me/player/play?device_id=" + device_id,
+        type: "PUT",
+        //data: '{"uris": ["spotify:track:76wJIkA63AgwA92hUhpE2V"]}',
+        data: '{"uris": ' + uris + '}',
+        //data: '{"uris": ["spotify:playlist:' + playlistId + '"]}',
+        beforeSend: function(xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + _token); },
+        success: function(data) {
+            console.log(data)
+        }
+    });
 }
 
 function getPlaylistTracks(playlistId) {
-    return new Promise(function(resolve, reject) {
-        var uris = new Array();
-        //uris.splice(0, uris.length);
-        //alert('gettingTracks');
-        $.ajax({
-            url: "https://api.spotify.com/v1/playlists/" + playlistId + "/tracks",
-            type: "GET",
-            beforeSend: function(xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + _token); },
-            success: function(data) {
-                console.log(data);
-                data.items.forEach(function(i) {
-                    console.log(i.track.uri);
-                    uris.push(i.track.uri);
-                });
+    var uris = new Array();
+    //uris.splice(0, uris.length);
+    alert('gettingTracks');
+    $.ajax({
+        url: "https://api.spotify.com/v1/playlists/" + playlistId + "/tracks",
+        type: "GET",
+        async: false,
+        beforeSend: function(xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + _token); },
+        success: function(data) {
+            console.log(data);
+            data.items.forEach(function(i) {
+                console.log(i.track.uri);
+                uris.push(i.track.uri);
+            });
 
-                //alert(uris.length);
-                //return uris;
-            }
-        }) {
-            if (error) return reject(error);
-            resolve(uris);
-        };
-
-    })
-};
+            //alert(uris.length);
+            return uris;
+        }
+    });
+}
