@@ -149,25 +149,6 @@ function toggle() {
 function play(device_id) {
     playlistId = document.getElementById("playlistsDD").value;
     //alert(playlistId);
-    var uris = getPlaylistTracks(playlistId);
-    while (uris == undefined) {
-
-    }
-    alert(uris);
-    $.ajax({
-        url: "https://api.spotify.com/v1/me/player/play?device_id=" + device_id,
-        type: "PUT",
-        //data: '{"uris": ["spotify:track:76wJIkA63AgwA92hUhpE2V"]}',
-        data: '{"uris": ' + uris + '}',
-        //data: '{"uris": ["spotify:playlist:' + playlistId + '"]}',
-        beforeSend: function(xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + _token); },
-        success: function(data) {
-            console.log(data)
-        }
-    });
-}
-
-function getPlaylistTracks(playlistId) {
     var uris = new Array();
     //uris.splice(0, uris.length);
     alert('gettingTracks');
@@ -187,4 +168,19 @@ function getPlaylistTracks(playlistId) {
             return uris;
         }
     });
+    $.ajax({
+        url: "https://api.spotify.com/v1/me/player/play?device_id=" + device_id,
+        type: "PUT",
+        //data: '{"uris": ["spotify:track:76wJIkA63AgwA92hUhpE2V"]}',
+        data: '{"uris": ' + uris + '}',
+        //data: '{"uris": ["spotify:playlist:' + playlistId + '"]}',
+        beforeSend: function(xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + _token); },
+        success: function(data) {
+            console.log(data)
+        }
+    });
+}
+
+function getPlaylistTracks(playlistId) {
+
 }
