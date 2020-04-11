@@ -146,13 +146,12 @@ function toggle() {
     })
 }
 // Play a specified track
-function play(device_id) {
+async function play(device_id) {
     playlistId = document.getElementById("playlistsDD").value;
     //alert(playlistId);
-    var promise = new Promise(function(resolve, reject) {
-        var uris = getPlaylistTracks(playlistId)
-    }).then(function() {
-        alert(uris);
+    try {
+        var uris = getPlaylistTracks(playlistId);
+        console.log(uris);
         $.ajax({
             url: "https://api.spotify.com/v1/me/player/play?device_id=" + device_id,
             type: "PUT",
@@ -164,26 +163,31 @@ function play(device_id) {
                 console.log(data)
             }
         });
-    });
+
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 function getPlaylistTracks(playlistId) {
-    var uris = new Array();
-    //uris.splice(0, uris.length);
-    alert('gettingTracks');
-    $.ajax({
-        url: "https://api.spotify.com/v1/playlists/" + playlistId + "/tracks",
-        type: "GET",
-        beforeSend: function(xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + _token); },
-        success: function(data) {
-            console.log(data);
-            data.items.forEach(function(i) {
-                console.log(i.track.uri);
-                uris.push(i.track.uri);
-            });
+    return new Promise(function(resolve, reject) {
+        var uris = new Array();
+        //uris.splice(0, uris.length);
+        //alert('gettingTracks');
+        $.ajax({
+            url: "https://api.spotify.com/v1/playlists/" + playlistId + "/tracks",
+            type: "GET",
+            beforeSend: function(xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + _token); },
+            success: function(data) {
+                console.log(data);
+                data.items.forEach(function(i) {
+                    console.log(i.track.uri);
+                    uris.push(i.track.uri);
+                });
 
-            //alert(uris.length);
-            return uris;
-        }
-    });
-}
+                //alert(uris.length);
+                return uris;
+            }
+        });
+    })
+};
