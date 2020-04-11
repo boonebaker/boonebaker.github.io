@@ -167,12 +167,12 @@ function play(device_id) {
             alert(uris.length);
         }
     });
-    alert(uris);
+    alert(JSON.stringify(uris));
     $.ajax({
         url: "https://api.spotify.com/v1/me/player/play?device_id=" + device_id,
         type: "PUT",
         //data: '{"uris": ["spotify:track:76wJIkA63AgwA92hUhpE2V"]}',
-        data: '{"uris": ' + uris + '}',
+        data: '{"uris": ' + JSON.stringify(uris) + '}',
         //data: '{"uris": ["spotify:playlist:' + playlistId + '"]}',
         beforeSend: function(xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + _token); },
         success: function(data) {
