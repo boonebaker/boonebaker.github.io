@@ -110,35 +110,40 @@ function getPlaylists() {
 function start() {
     if (document.getElementById("playlistsDD").value != "null") {
 
+        player.getCurrentState().then(state => {
+            if (state) {
+                play(data.device_id);
+            } else {
 
-        // Error handling
-        player.on('initialization_error', e => console.error(e));
-        player.on('authentication_error', e => console.error(e));
-        player.on('account_error', e => console.error(e));
-        player.on('playback_error', e => console.error(e));
+                // Error handling
+                player.on('initialization_error', e => console.error(e));
+                player.on('authentication_error', e => console.error(e));
+                player.on('account_error', e => console.error(e));
+                player.on('playback_error', e => console.error(e));
 
-        // Playback status updates
-        player.on('player_state_changed', state => {
-            console.log(state)
-            $('#current-track').attr('src', state.track_window.current_track.album.images[0].url);
-            $('#current-track-name').text(state.track_window.current_track.name);
-        });
+                // Playback status updates
+                player.on('player_state_changed', state => {
+                    console.log(state)
+                    $('#current-track').attr('src', state.track_window.current_track.album.images[0].url);
+                    $('#current-track-name').text(state.track_window.current_track.name);
+                });
 
-        // Ready
-        player.on('ready', data => {
-            console.log('Ready with Device ID', data.device_id);
+                // Ready
+                player.on('ready', data => {
+                    console.log('Ready with Device ID', data.device_id);
 
-            // Play a track using our new device ID
-            play(data.device_id);
-        });
+                    // Play a track using our new device ID
+                    play(data.device_id);
+                });
 
-        // Connect to the player!
-        player.connect();
+                // Connect to the player!
+                player.connect();
+            }
+        })
     } else {
         alert('Please select a playlist');
     }
 };
-1
 
 function toggle() {
     player.togglePlay().then(() => {
@@ -151,7 +156,7 @@ function play(device_id) {
     //alert(playlistId);
     var uris = new Array();
     //uris.splice(0, uris.length);
-    alert('gettingTracks');
+    //alert('gettingTracks');
     $.ajax({
         url: "https://api.spotify.com/v1/playlists/" + playlistId + "/tracks",
         type: "GET",
@@ -164,10 +169,10 @@ function play(device_id) {
                 uris.push(i.track.uri);
             });
 
-            alert(uris.length);
+            //alert(uris.length);
         }
     });
-    alert(JSON.stringify(uris));
+    //alert(JSON.stringify(uris));
     $.ajax({
         url: "https://api.spotify.com/v1/me/player/play?device_id=" + device_id,
         type: "PUT",
