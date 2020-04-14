@@ -149,8 +149,23 @@ function nextTrack() {
     player.togglePlay().then(() => {
         document.getElementById("minutemarker").play();
     });
-    player.nextTrack();
-}
+    player.nextTrack().then(() => {
+        player.seek(60 * 1000).then(() => {
+            if (!state) {
+                console.error('User is not playing music through the Web Playback SDK');
+                return;
+            }
+
+            let {
+                current_track,
+                next_tracks: [next_track]
+            } = state.track_window;
+
+            console.log('Currently Playing', current_track);
+            console.log('Playing Next', next_track);
+        });
+    })
+};
 
 function toggle() {
     player.togglePlay().then(() => {
