@@ -146,6 +146,9 @@ function start() {
 };
 
 function nextTrack() {
+    player.togglePLay().then(() => {
+        document.getElementById("minutemarker").play();
+    });
     player.nextTrack();
 }
 
