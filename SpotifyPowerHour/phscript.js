@@ -134,7 +134,7 @@ function start() {
 
                 // Play a track using our new device ID
                 play(data.device_id);
-                setInterval(nextTrack, 10000);
+                setInterval(nextTrack, 60 * 1000);
             });
 
             // Connect to the player!
